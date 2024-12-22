@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from '../../../assets/logo/logo2 .png'
 
 
@@ -72,8 +72,8 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end gap-2">
-          <a className="btn btn-accent">Login</a>
-          <a className="btn btn-error">Register</a>
+          <Link to='/login' className="btn btn-accent">Login</Link>
+          <Link to='/register' className="btn btn-error">Register</Link>
         </div>
       </div>
     </div>
