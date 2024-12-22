@@ -61,7 +61,7 @@ const Navbar = () => {
              {Links}
             </ul>
           </div>
-         <div className="flex gap-2 items-center">
+         <div className="flex gap-1 items-center">
             <img src={logo} className="md:h-20 md:w-20  h-14 w-14" alt="" />
             <a className=" lg:text-4xl text-2xl font-bold"><span className="text-orange-700">Elite</span>Rides</a>
          </div>
