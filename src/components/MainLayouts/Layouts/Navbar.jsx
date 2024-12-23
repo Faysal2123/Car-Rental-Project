@@ -1,46 +1,43 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import logo from '../../../assets/logo/logo2.png'
+import logo from "../../../assets/logo/logo2.png";
 import { AuthContext } from "../../Provider/AuthProvider";
 
-
 const Navbar = () => {
-  const{user, logOut}=useContext(AuthContext)
-  const handleLogOut=()=>{
-    logOut()
-  }
-  const Links = (
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut();
+  };
+  const LoggedInLinks = (
     <>
       <li>
-      <NavLink to='/'>
-        Home
-      </NavLink>
-      </li>
-     <li >
-     <NavLink to='/availableCars'>
-        Available Cars
-      </NavLink>
-     </li>
-      <li>
-      <NavLink to='/addCar'>
-         Add Car
-      </NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-      <NavLink to='/myCars'>
-      My Cars
-      </NavLink>
+        <NavLink to="/availableCars">Available Cars</NavLink>
       </li>
       <li>
-      <NavLink to='/myBookings'>
-      My Bookings 
-      </NavLink>
+        <NavLink to="/addCar">Add Car</NavLink>
+      </li>
+      <li>
+        <NavLink to="/myCars">My Cars</NavLink>
+      </li>
+      <li>
+        <NavLink to="/myBookings">My Bookings</NavLink>
       </li>
     </>
   );
+  const LoggedOutLinks = (
+    <>
+      <li><NavLink to='/'>Home</NavLink></li>
+      <li><NavLink to='/availableCars'>Available Cars</NavLink></li>
+      
+    </>
+  );
   return (
-    <div className="items-center ">
-      <div className="navbar bg-slate-200">
+   <div className=" bg-slate-200">
+     <div className="items-center w-11/12 mx-auto">
+      <div className="navbar ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -63,34 +60,46 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
-             {Links}
+              {user ? LoggedInLinks
+               : LoggedOutLinks}
             </ul>
           </div>
-         <div className="flex gap-1 items-center">
+          <div className="flex gap-1 items-center">
             <img src={logo} className="md:h-20 md:w-20  h-14 w-14" alt="" />
-            <a className=" lg:text-4xl text-2xl font-bold"><span className="text-orange-700">Elite</span>Rides</a>
-         </div>
+            <a className=" lg:text-4xl text-2xl font-bold">
+              <span className="text-orange-700">Elite</span>Rides
+            </a>
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-base">
-            {Links}
-          </ul>
+          <ul className="menu menu-horizontal px-1 text-base">{user ? LoggedInLinks :LoggedOutLinks}</ul>
         </div>
         <div className="navbar-end gap-2">
-         {user ?(
-          <div className="flex gap-2">
-            <div>
-              <img className="h-10 w-10 rounded-full object-cover" src={user?.photoURL} alt="" />
+          {user ? (
+            <div className="flex gap-2">
+              <div>
+                <img
+                  className="h-10 w-10 rounded-full object-fill"
+                  src={user?.photoURL}
+                  alt=""
+                />
+              </div>
+              <button onClick={handleLogOut} className="btn btn-warning">
+                Logout
+              </button>
             </div>
-            <button onClick={handleLogOut} className="btn btn-warning">Logout</button>
-          </div>
-         ):(<div>
-           <Link to='/login' className="btn btn-accent">Login</Link>
-           <Link to='/register' className="btn btn-error">Register</Link>
-         </div>)}
+          ) : (
+            <div className="flex gap-2">
+              <Link to="/login" className="btn btn-accent ">
+                Login
+              </Link>
+              {/* <Link to='/register' className="btn btn-error">Register</Link> */}
+            </div>
+          )}
         </div>
       </div>
     </div>
+   </div>
   );
 };
 
