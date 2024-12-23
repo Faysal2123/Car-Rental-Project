@@ -1,24 +1,55 @@
-import React from "react";
+import React, { useContext } from "react";
 import loginLogo from '../../assets/lottie/Animation1.json'
 import Lottie from "lottie-react";
+import { AuthContext } from "../Provider/AuthProvider";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const Login = () => {
-    const handleLogin=(e)=>{
+  const {signIn,signInWithGoogle,setUser}=useContext(AuthContext)
+   const location=useLocation();
+   const navigate=useNavigate()
+   const handleGoogleSignIn= async ()=>{
+    try{
+      await signInWithGoogle()
+      toast.success('Login Successful')
+      setTimeout(() => {
+        navigate(location?.state || '/')
+      },1000);
+    }
+    catch(err){
+       toast.error(err?.message)
+      
+    }
+   }
+    const handleLogin=(e)=>{ 
         e.preventDefault()
         const form=e.target;
         const email=form.email.value;
         const password=form.password.value;
         console.log({email,password})
+        signIn(email,password)
+        .then((result)=>{
+          const user=result.user;
+          setUser(user)
+          toast.success("Login Successful")
+          setTimeout(()=>{
+            navigate(location?.state || "/")
+          },1000)
+        })
+        .catch(()=>{
+          toast.error(`Login Failed`)
+        })
     }
   return (
     <div className="flex justify-center lg:flex-row flex-col  items-center lg:pt-20 pt-8 pb-6">
-      <div className="lg:h-72 lg:w-72 h-24 w-24">
+      <div className="lg:h-72 lg:w-72 h-28 w-28">
         <Lottie animationData={loginLogo}>
             
         </Lottie>
       </div>
       <div>
         
-        <div className="card bg-base-100 w-full  shadow-2xl">
+        <div className="card bg-base-100 w-full  shadow-2xl p-3">
           <form className="card-body" onSubmit={handleLogin}>
             <div className="form-control">
               <label className="label">
@@ -52,6 +83,15 @@ const Login = () => {
             <div className="form-control mt-6">
               <button className="btn btn-accent">Login</button>
             </div>
+            <div>
+              <p> Don't have an account
+                <Link to='/register' className="font-semibold text-blue-600">Register</Link>
+              </p>
+            </div>
+            <div className="divider">OR</div>
+               <button onClick={handleGoogleSignIn} className="btn btn-outline btn-info">
+                Sign in with Google
+               </button>
           </form>
         </div>
       </div>
