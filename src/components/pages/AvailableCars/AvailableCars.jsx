@@ -8,7 +8,6 @@ const AvailableCars = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [sortOption, setSortOption] = useState('model'); 
 
-    
     const filteredCars = cars
         .filter((car) =>
             car.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -29,7 +28,6 @@ const AvailableCars = () => {
 
             <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Available Cars: {filteredCars.length}</h1>
 
-      
             <p className="text-center text-lg text-gray-600 mb-8">
                 Explore a wide range of cars available for rent. Whether you're looking for a luxury ride or a budget-friendly option, we have something for every need. Search, sort, and book your perfect car today!
             </p>
@@ -88,8 +86,11 @@ const AvailableCars = () => {
                                 <li key={index}>{feature}</li>
                             ))}
                         </ul>
+                        <p className="text-sm text-gray-600 mb-4">
+                            <strong>Location:</strong> {car.location}
+                        </p>
                         <Link
-                            to='/'
+                            to={`/carsDetails/${car._id}`}
                             className="mt-auto px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all text-center"
                         >
                             Book Now

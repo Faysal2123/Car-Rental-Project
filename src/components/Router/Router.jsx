@@ -7,6 +7,7 @@ import AvailableCars from "../pages/AvailableCars/AvailableCars";
 import AddCar from "../pages/AddCar/AddCar";
 import MyCar from "../pages/MyCar.jsx/MyCar";
 import MyBookings from "../pages/MyBookings/MyBookings";
+import CarsDetails from "../pages/AvailableCars/CarsDetails";
 
 const router=createBrowserRouter([
     {
@@ -21,6 +22,11 @@ const router=createBrowserRouter([
                 path:'/availableCars',
                 element:<AvailableCars></AvailableCars>,
                 loader:()=>fetch('http://localhost:5000/cars')
+            },
+            {
+                path:'/carsDetails/:id',
+                element:<CarsDetails></CarsDetails>,
+                loader:({params})=>fetch(`http://localhost:5000/cars/${params.id}`)
             },
             {
                 path:'/addCar',
