@@ -4,14 +4,34 @@ const AddCar = () => {
     const handleSubmit=(e)=>{
         e.preventDefault()
         const form=e.target
-        const modal=form.modal.value;
-        const dailyPrice=form.dailyPrice.value
+        const model=form.model.value;
+        const dailyPrice=form.dailyPrice.value;
+        const availability=form.availability.value;
+        const registrationNumber=form.registrationNumber.value;
+        const features = form.features.value.split(',').map((feature) => feature.trim());
+        const description=form.description.value
+        const bookingCount=form.bookingCount.value;
+        const carImage=form.carImage.value;
+        const location=form.location.value
+       const carData={model,dailyPrice,availability,registrationNumber,features,description,bookingCount,carImage,location}
+       console.log(carData)
+
+        fetch('http://localhost:5000/cars',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(carData)
+        })
+        .then(res =>res.json())
+        .then(data =>console.log(data))
+
     }
     return (
         <div>
              <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-bold text-center mb-6">Add Car Details</h2>
-            <form >
+            <form onSubmit={handleSubmit}>
                 {/* Model */}
                 <div className="form-control mb-4">
                     <label className="label">
