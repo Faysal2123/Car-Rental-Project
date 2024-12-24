@@ -10,7 +10,7 @@ import mercedes from '../../../assets/images/Mercedes.png';
 
 const RecentListing = () => {
   return (
-    <div className="px-4 py-8">
+    <div className="px-4 py-8 bg-gray-200">
       <h2 className="lg:text-5xl text-3xl font-bold text-gray-800 text-center mb-6">Recent Car Listings</h2>
       <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8 ">
         Explore our latest collection of cars available for rent. Choose from a wide variety of top models with competitive pricing.
