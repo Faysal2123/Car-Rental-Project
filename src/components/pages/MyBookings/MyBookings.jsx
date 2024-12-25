@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
-import { FaTrashAlt, FaCalendarAlt } from 'react-icons/fa'; // for icons
-import Swal from 'sweetalert2'; // SweetAlert import
-import DatePicker from "react-datepicker"; // Import DatePicker
-import "react-datepicker/dist/react-datepicker.css"; // Import DatePicker Styles
+import { FaTrashAlt, FaCalendarAlt } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const MyBookings = () => {
     const [bookings, setBookings] = useState([]);
-    const [selectedBooking, setSelectedBooking] = useState(null); 
-    const [newDate, setNewDate] = useState(null); 
-    const [showDatePicker, setShowDatePicker] = useState(false); 
+    const [selectedBooking, setSelectedBooking] = useState(null);
+    const [newDate, setNewDate] = useState(null);
+    const [showDatePicker, setShowDatePicker] = useState(false);
     const { user } = useContext(AuthContext);
-    console.log(bookings)
 
     useEffect(() => {
         if (user?.email) {
@@ -24,10 +24,10 @@ const MyBookings = () => {
 
     const handleCancelBooking = (bookingId) => {
         fetch(`http://localhost:5000/bookings/${bookingId}`, {
-            method: 'DELETE', 
+            method: 'DELETE',
         }).then((res) => {
             if (res.ok) {
-                setBookings(bookings.filter((booking) => booking._id !== bookingId)); 
+                setBookings(bookings.filter((booking) => booking._id !== bookingId));
             }
         });
     };
@@ -35,7 +35,7 @@ const MyBookings = () => {
     const handleModifyDate = (bookingId) => {
         if (newDate) {
             fetch(`http://localhost:5000/bookings/${bookingId}`, {
-                method: 'PUT', 
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ newDate: newDate })
             }).then((res) => {
@@ -45,7 +45,7 @@ const MyBookings = () => {
                             booking._id === bookingId ? { ...booking, bookingDate: newDate } : booking
                         )
                     );
-                    setShowDatePicker(false); 
+                    setShowDatePicker(false);
                 }
             });
         }
@@ -68,12 +68,20 @@ const MyBookings = () => {
 
     const showModifyDate = (booking) => {
         setSelectedBooking(booking);
-        setShowDatePicker(true); 
+        setShowDatePicker(true);
     };
+
+    // Daily Price Data for the Chart
+    const chartData = bookings.map(booking => ({
+        date: new Date(booking.bookingDate).toLocaleDateString(),
+        price: booking.dailyPrice,
+    }));
 
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold">My Bookings</h1>
+            
+            {/* Table with Booking Details */}
             <table className="w-full mt-4 border-collapse border border-gray-200">
                 <thead>
                     <tr>
@@ -119,7 +127,26 @@ const MyBookings = () => {
                 </tbody>
             </table>
 
-          
+            {/* Recharts - Daily Rental Price Chart */}
+            <div className="my-6">
+                <h2 className="text-xl font-semibold">Daily Rental Price</h2>
+                <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={chartData}>
+                        <CartesianGrid strokeDasharray="5 5" />
+                        <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                        <YAxis tick={{ fontSize: 12 }} />
+                        <Tooltip 
+                            contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', border: '1px solid #ddd' }}
+                            labelStyle={{ fontWeight: 'bold' }}
+                            itemStyle={{ fontSize: '14px', color: '#333' }}
+                        />
+                        <Legend verticalAlign="top" height={36} />
+                        <Line type="monotone" dataKey="price" stroke="#8884d8" strokeWidth={3} dot={{ r: 4 }} />
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>
+
+            {/* Date Picker for Modifying Booking */}
             {showDatePicker && selectedBooking && (
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg">

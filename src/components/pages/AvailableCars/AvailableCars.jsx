@@ -89,6 +89,10 @@ const AvailableCars = () => {
                         <p className="text-sm text-gray-600 mb-4">
                             <strong>Location:</strong> {car.location}
                         </p>
+                        {/* Display Booking Count */}
+                        <p className="text-sm text-gray-600 mb-4">
+                            <strong>Bookings:</strong> {car.bookingCount}
+                        </p>
                         <Link
                             to={`/carsDetails/${car._id}`}
                             className="mt-auto px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all text-center"

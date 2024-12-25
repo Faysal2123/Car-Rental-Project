@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
@@ -9,6 +9,7 @@ const CarsDetails = () => {
     const { model, dailyPrice, availability, features, carImage, description, location } = details;
     const auth = getAuth();
     const userEmail = auth.currentUser?.email || 'Guest'; 
+    const navigate=useNavigate()
     const handleBookingConfirm = () => {
         const auth = getAuth();
         const userEmail = auth.currentUser?.email;
@@ -56,6 +57,9 @@ const CarsDetails = () => {
                     .then((data) => {
                         if (data.insertedId) {
                             toast.success('Booking Confirmed!');
+                            setTimeout(()=>{
+                                navigate('/myBookings')
+                            },1000)
                             Swal.fire('Booked!', 'Your booking has been confirmed.', 'success');
                         } else {
                             Swal.fire('Failed!', data.message || 'Booking failed!', 'error');
@@ -103,6 +107,7 @@ const CarsDetails = () => {
                 <p className="text-gray-700 text-lg mb-6">{description}</p>
                 <button
                     onClick={handleBookingConfirm}
+
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all"
                 >
                     Book Now

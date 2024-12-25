@@ -18,7 +18,7 @@ const AddCar = () => {
         const registrationNumber=form.registrationNumber.value;
         const features = form.features.value.split(',').map((feature) => feature.trim());
         const description=form.description.value
-        const bookingCount=form.bookingCount.value;
+        const bookingCount = Number(form.bookingCount.value) || 0;
         const carImage=form.carImage.value;
         const location=form.location.value
         const addedDate=new Date().toLocaleDateString()
