@@ -4,6 +4,7 @@ import Lottie from "lottie-react";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 const Login = () => {
   const {signIn,signInWithGoogle,setUser}=useContext(AuthContext)
    const location=useLocation();
@@ -30,6 +31,8 @@ const Login = () => {
         signIn(email,password)
         .then((result)=>{
           const user=result.user;
+          axios.post('http://localhost:5000/jwt', {withCredential:true})
+          .then(res=>console.log(res.data))
           setUser(user)
           toast.success("Login Successful")
           setTimeout(()=>{

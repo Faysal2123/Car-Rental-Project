@@ -3,6 +3,7 @@ import auth from './firebase.init';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { updateProfile } from 'firebase/auth';
+import axios from 'axios';
 
 
 export const AuthContext=createContext();
@@ -21,16 +22,38 @@ const AuthProvider = ({children}) => {
     const signInWithGoogle=()=>{
         return signInWithPopup(auth,provider)
     }
-    useEffect(()=>{
-        const unSubscribe=onAuthStateChanged(auth,currentUser=>{
-          setUser(currentUser)
-          console.log(currentUser)
-          setLoading(false)
-        })
-        return ()=>{
-            unSubscribe()
-        }
-    },[])
+        useEffect(() => {
+            const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
+                try {
+                    if (currentUser) {
+                        const res = await axios.post(
+                            'http://localhost:5000/jwt',
+                            { email: currentUser.email },
+                            { withCredentials: true }
+                        );
+                        console.log('Token:', res.data);
+                        console.log(currentUser);
+                        setUser(currentUser); 
+                        setLoading(false);
+                    } else {
+                        const res = await axios.post(
+                            'http://localhost:5000/logout',
+                            {},
+                            { withCredentials: true }
+                        );
+                        console.log('Logout:', res.data);
+                        setUser(null); 
+                        setLoading(false);
+                    }
+                } catch (err) {
+                    console.error('Error:', err);
+                }
+            });
+        
+            return () => {
+                unSubscribe();
+            };
+        }, []);     
     const logOut=()=>{
         return signOut(auth)
     }

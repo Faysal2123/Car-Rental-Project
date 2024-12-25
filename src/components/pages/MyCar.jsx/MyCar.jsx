@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // React SweetAlert2
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../Provider/AuthProvider';
+import axios from 'axios';
+
 
 const MyCar = () => {
     const { user } = useContext(AuthContext);
@@ -10,17 +12,23 @@ const MyCar = () => {
     const [sortOption, setSortOption] = useState('dateAdded');
     
 
-    // Fetch cars added by the user from the database
+   
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/cars/email?email=${user.email}`)
-                .then((res) => res.json())
-                .then((data) => setCars(data))
-                .catch((error) => console.error(error));
+            
+            axios.get(`http://localhost:5000/cars/email?email=${user.email}`, { withCredentials: true })
+                .then((res) => {
+                    setCars(res.data);
+                   
+                })
+                .catch((error) => {
+                    console.error('Error fetching cars:', error);
+                 
+                });
         }
     }, [user]);
 
-    // Sorting cars based on user selection
+   
     const handleSortChange = (e) => {
         setSortOption(e.target.value);
     };
@@ -36,7 +44,7 @@ const MyCar = () => {
         return 0;
     });
 
-    // Handle delete car with SweetAlert2
+   
     const handleDelete = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -60,11 +68,6 @@ const MyCar = () => {
             }
         });
     };
-
-    // Navigate to UpdateDetails page
-    // const handleUpdate = (car) => {
-    //     navigate(`/updateDetails/${car._id}`, { state: car });
-    // };
 
     return (
         <div className="p-6 bg-gradient-to-b from-gray-100 to-blue-50 min-h-screen">
