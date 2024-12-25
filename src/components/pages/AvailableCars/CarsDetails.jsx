@@ -10,6 +10,21 @@ const CarsDetails = () => {
     const auth = getAuth();
     const userEmail = auth.currentUser?.email || 'Guest'; 
     const handleBookingConfirm = () => {
+        const auth = getAuth();
+        const userEmail = auth.currentUser?.email;
+    
+        if (!userEmail) {
+            
+            Swal.fire({
+                title: 'Login Required',
+                text: 'Please log in to confirm your booking.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#d33',
+            });
+            return; 
+        }
+    
         Swal.fire({
             title: 'Confirm Booking',
             text: `Are you sure you want to book the ${model}?`,
@@ -20,16 +35,16 @@ const CarsDetails = () => {
             confirmButtonText: 'Yes, Book it!',
         }).then((result) => {
             if (result.isConfirmed) {
-
                 const bookingData = {
                     carModel: model,
                     carImage,
                     dailyPrice,
                     userEmail,
                     bookingDate: new Date().toISOString(),
+                    
                 };
-
-                // Simulate API call
+    
+            
                 fetch('http://localhost:5000/bookings', {
                     method: 'POST',
                     headers: {
@@ -52,6 +67,7 @@ const CarsDetails = () => {
             }
         });
     };
+    
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">

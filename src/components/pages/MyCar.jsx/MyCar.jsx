@@ -117,7 +117,7 @@ const MyCar = () => {
                             <td className="py-2 px-4 border-b">{car.model}</td>
                             <td className="py-2 px-4 border-b">{car.dailyPrice}</td>
                             <td className="py-2 px-4 border-b">{car.availability}</td>
-                            <td className="py-2 px-4 border-b">{new Date(car.dateAdded).toLocaleDateString()}</td>
+                            <td className="py-2 px-4 border-b">{car.addedDate}</td>
                             <td className="py-2 px-4 border-b">
                                 <Link
                                     to={`/updateDetails/${car._id}`}

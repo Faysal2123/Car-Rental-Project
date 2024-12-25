@@ -9,6 +9,7 @@ import MyCar from "../pages/MyCar.jsx/MyCar";
 import MyBookings from "../pages/MyBookings/MyBookings";
 import CarsDetails from "../pages/AvailableCars/CarsDetails";
 import UpdateDetails from "../pages/MyCar.jsx/UpdateDetails";
+import PrivateRoute from "../pages/PrivateRoute";
 
 const router=createBrowserRouter([
     {
@@ -31,19 +32,19 @@ const router=createBrowserRouter([
             },
             {
                 path:'/addCar',
-                element:<AddCar></AddCar>
+                element:<PrivateRoute><AddCar></AddCar></PrivateRoute>
             },
             {
                 path:'/myCars',
-                element:<MyCar></MyCar>
+                element:<PrivateRoute><MyCar></MyCar></PrivateRoute>
             },
             {
                 path:'/myBookings',
-                element:<MyBookings></MyBookings> 
+                element:<PrivateRoute><MyBookings></MyBookings> </PrivateRoute>
             },
             {
                 path:'/updateDetails/:id',
-                element:<UpdateDetails></UpdateDetails>
+                element:<PrivateRoute><UpdateDetails></UpdateDetails></PrivateRoute>
             },
             {
                 path:'/login',

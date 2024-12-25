@@ -41,9 +41,7 @@ const UpdateDetails = () => {
     };
 
    
-    if (!car) {
-        return <div>Loading...</div>;
-    }
+  
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">

@@ -21,7 +21,8 @@ const AddCar = () => {
         const bookingCount=form.bookingCount.value;
         const carImage=form.carImage.value;
         const location=form.location.value
-       const carData={model,dailyPrice,availability,registrationNumber,features,description,bookingCount,carImage,location,userEmail}
+        const addedDate=new Date().toLocaleDateString()
+       const carData={model,dailyPrice,availability,registrationNumber,features,description,bookingCount,carImage,location,userEmail,addedDate}
        console.log(carData)
 
         fetch('http://localhost:5000/cars',{
