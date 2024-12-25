@@ -1,37 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'; // React SweetAlert2
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../Provider/AuthProvider';
 import axios from 'axios';
 
-
 const MyCar = () => {
     const { user } = useContext(AuthContext);
     const [cars, setCars] = useState([]);
     const [sortOption, setSortOption] = useState('dateAdded');
-    
 
-   
     useEffect(() => {
         if (user?.email) {
-            
-            axios.get(`http://localhost:5000/cars/email?email=${user.email}`, { withCredentials: true })
-                .then((res) => {
-                    setCars(res.data);
-                   
-                })
-                .catch((error) => {
-                    console.error('Error fetching cars:', error);
-                 
-                });
+            axios
+                .get(`http://localhost:5000/cars/email?email=${user.email}`, { withCredentials: true })
+                .then((res) => setCars(res.data))
+                .catch((error) => console.error('Error fetching cars:', error));
         }
     }, [user]);
 
-   
-    const handleSortChange = (e) => {
-        setSortOption(e.target.value);
-    };
+    const handleSortChange = (e) => setSortOption(e.target.value);
 
     const sortedCars = [...cars].sort((a, b) => {
         if (sortOption === 'dateAdded') {
@@ -44,7 +32,6 @@ const MyCar = () => {
         return 0;
     });
 
-   
     const handleDelete = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -56,9 +43,7 @@ const MyCar = () => {
             confirmButtonText: 'Yes, delete it!',
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/cars/${id}`, {
-                    method: 'DELETE',
-                })
+                fetch(`http://localhost:5000/cars/${id}`, { method: 'DELETE' })
                     .then((res) => res.json())
                     .then(() => {
                         setCars(cars.filter((car) => car._id !== id));
@@ -73,21 +58,16 @@ const MyCar = () => {
         <div className="p-6 bg-gradient-to-b from-gray-100 to-blue-50 min-h-screen">
             <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">My Added Cars</h1>
 
-            <div className="flex justify-between items-center mb-6">
-                <div className='flex justify-between'>
-                    
-                    <select
-                        value={sortOption}
-                        onChange={handleSortChange}
-                        className="border px-4 py-2 rounded-md shadow-md"
-                    >
-                        <option value="dateAdded">Sort by Date Added</option>
-                        <option value="priceLowToHigh">Sort by Price (Low to High)</option>
-                        <option value="priceHighToLow">Sort by Price (High to Low)</option>
-                    </select>
-                   
-                    
-                </div>
+            <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                <select
+                    value={sortOption}
+                    onChange={handleSortChange}
+                    className="border px-4 py-2 rounded-md shadow-md"
+                >
+                    <option value="dateAdded">Sort by Date Added</option>
+                    <option value="priceLowToHigh">Sort by Price (Low to High)</option>
+                    <option value="priceHighToLow">Sort by Price (High to Low)</option>
+                </select>
                 {cars.length === 0 && (
                     <div className="text-center">
                         <p>
@@ -100,45 +80,47 @@ const MyCar = () => {
                 )}
             </div>
 
-            <table className="min-w-full bg-white border border-gray-300 rounded-lg">
-                <thead>
-                    <tr>
-                        <th className="py-2 px-4 border-b">Car Image</th>
-                        <th className="py-2 px-4 border-b">Car Model</th>
-                        <th className="py-2 px-4 border-b">Daily Rental Price</th>
-                        <th className="py-2 px-4 border-b">Availability</th>
-                        <th className="py-2 px-4 border-b">Date Added</th>
-                        <th className="py-2 px-4 border-b">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sortedCars.map((car) => (
-                        <tr key={car._id} className='text-center'>
-                            <td className="py-2 px-4 border-b">
-                                <img src={car.carImage} alt={car.model} className="w-20 h-20 object-cover" />
-                            </td>
-                            <td className="py-2 px-4 border-b">{car.model}</td>
-                            <td className="py-2 px-4 border-b">{car.dailyPrice}</td>
-                            <td className="py-2 px-4 border-b">{car.availability}</td>
-                            <td className="py-2 px-4 border-b">{car.addedDate}</td>
-                            <td className="py-2 px-4 border-b">
-                                <Link
-                                    to={`/updateDetails/${car._id}`}
-                                    className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2"
-                                >
-                                    Update
-                                </Link>
-                                <button
-                                    onClick={() => handleDelete(car._id)}
-                                    className="px-4 py-2 bg-red-500 text-white rounded-md"
-                                >
-                                    Delete
-                                </button>
-                            </td>
+            <div className="overflow-x-auto">
+                <table className="min-w-full bg-white border border-gray-300 rounded-lg">
+                    <thead>
+                        <tr className="bg-gray-200">
+                            <th className="py-2 px-4 border-b">Car Image</th>
+                            <th className="py-2 px-4 border-b">Car Model</th>
+                            <th className="py-2 px-4 border-b">Daily Rental Price</th>
+                            <th className="py-2 px-4 border-b">Availability</th>
+                            <th className="py-2 px-4 border-b">Date Added</th>
+                            <th className="py-2 px-4 border-b">Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {sortedCars.map((car) => (
+                            <tr key={car._id} className="text-center">
+                                <td className="py-2 px-4 border-b">
+                                    <img src={car.carImage} alt={car.model} className="w-20 h-20 object-cover mx-auto" />
+                                </td>
+                                <td className="py-2 px-4 border-b">{car.model}</td>
+                                <td className="py-2 px-4 border-b">{car.dailyPrice}</td>
+                                <td className="py-2 px-4 border-b">{car.availability}</td>
+                                <td className="py-2 px-4 border-b">{car.addedDate}</td>
+                                <td className="py-2 px-4 border-b flex flex-col gap-2 items-center">
+                                    <Link
+                                        to={`/updateDetails/${car._id}`}
+                                        className="px-4 py-2 bg-blue-500 text-white rounded-md text-sm"
+                                    >
+                                        Update
+                                    </Link>
+                                    <button
+                                        onClick={() => handleDelete(car._id)}
+                                        className="px-4 py-2 bg-red-500 text-white rounded-md text-sm"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
