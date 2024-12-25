@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useParams, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const UpdateDetails = () => {
+    const{setLoading}=useContext(AuthContext)
     const { id } = useParams();
     const navigate = useNavigate();
     const [car, setCar] = useState(null); 
@@ -35,11 +37,16 @@ const UpdateDetails = () => {
             .then((res) => res.json())
             .then(() => {
                 toast.success("Car Details Update Successful")
-                navigate('/myCars');
+                setTimeout(() => {
+                    navigate('/myCars')
+                }, 1000);
+                setLoading(false)
             })
             .catch((error) => console.error('Error updating car:', error));
     };
-
+    if (!car) {
+        return <p className="text-center text-gray-500">Loading car details...</p>;
+    }
    
   
 

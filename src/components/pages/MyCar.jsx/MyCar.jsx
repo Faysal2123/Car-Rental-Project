@@ -89,7 +89,7 @@ const MyCar = () => {
                     <div className="text-center">
                         <p>
                             No cars added yet.{' '}
-                            <Link to="/add-car" className="text-blue-500">
+                            <Link to="/addCar" className="text-white btn bg-blue-500">
                                 Add a car
                             </Link>
                         </p>

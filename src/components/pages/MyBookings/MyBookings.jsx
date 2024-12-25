@@ -88,7 +88,7 @@ const MyBookings = () => {
                 <tbody>
                     {bookings.map((booking) => (
                         <tr key={booking._id} className="hover:bg-gray-100 text-center">
-                            <td>
+                            <td className='flex justify-center'>
                                 <img src={booking.carImage} alt={booking.carModel} className="w-20 h-20 object-contain rounded-md" />
                             </td>
                             <td>{booking.carModel}</td>
@@ -119,7 +119,7 @@ const MyBookings = () => {
                 </tbody>
             </table>
 
-            {/* Modal for Modify Booking Date */}
+          
             {showDatePicker && selectedBooking && (
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -132,7 +132,7 @@ const MyBookings = () => {
                             dateFormat="Pp"
                             className="w-full p-2 border rounded mt-4"
                         />
-                        <div className="flex justify-between mt-4">
+                        <div className="flex justify-between mt-4 items-center">
                             <button
                                 onClick={() => setShowDatePicker(false)}
                                 className="px-4 py-2 bg-gray-500 text-white rounded"

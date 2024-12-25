@@ -11,6 +11,7 @@ import CarsDetails from "../pages/AvailableCars/CarsDetails";
 import UpdateDetails from "../pages/MyCar.jsx/UpdateDetails";
 import PrivateRoute from "../pages/PrivateRoute";
 import ErrorPage from "../pages/ErrorPage";
+import Chart from "../pages/Chart";
 
 const router=createBrowserRouter([
     {
@@ -47,6 +48,10 @@ const router=createBrowserRouter([
             {
                 path:'/updateDetails/:id',
                 element:<PrivateRoute><UpdateDetails></UpdateDetails></PrivateRoute>
+            },
+            {
+                path:'/chart',
+                element:<Chart></Chart>
             },
             {
                 path:'/login',
