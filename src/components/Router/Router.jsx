@@ -8,6 +8,7 @@ import AddCar from "../pages/AddCar/AddCar";
 import MyCar from "../pages/MyCar.jsx/MyCar";
 import MyBookings from "../pages/MyBookings/MyBookings";
 import CarsDetails from "../pages/AvailableCars/CarsDetails";
+import UpdateDetails from "../pages/MyCar.jsx/UpdateDetails";
 
 const router=createBrowserRouter([
     {
@@ -39,6 +40,10 @@ const router=createBrowserRouter([
             {
                 path:'/myBookings',
                 element:<MyBookings></MyBookings> 
+            },
+            {
+                path:'/updateDetails/:id',
+                element:<UpdateDetails></UpdateDetails>
             },
             {
                 path:'/login',

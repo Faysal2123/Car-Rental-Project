@@ -11,6 +11,7 @@ const MyBookings = () => {
     const [newDate, setNewDate] = useState(null); 
     const [showDatePicker, setShowDatePicker] = useState(false); 
     const { user } = useContext(AuthContext);
+    console.log(bookings)
 
     useEffect(() => {
         if (user?.email) {

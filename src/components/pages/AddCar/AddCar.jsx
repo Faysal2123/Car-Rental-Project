@@ -1,6 +1,14 @@
-import React from 'react';
+import { getAuth } from 'firebase/auth';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const AddCar = () => {
+  
+     const auth = getAuth();
+        const userEmail = auth.currentUser?.email || 'Guest'; 
+        const navigate=useNavigate()
     const handleSubmit=(e)=>{
         e.preventDefault()
         const form=e.target
@@ -13,7 +21,7 @@ const AddCar = () => {
         const bookingCount=form.bookingCount.value;
         const carImage=form.carImage.value;
         const location=form.location.value
-       const carData={model,dailyPrice,availability,registrationNumber,features,description,bookingCount,carImage,location}
+       const carData={model,dailyPrice,availability,registrationNumber,features,description,bookingCount,carImage,location,userEmail}
        console.log(carData)
 
         fetch('http://localhost:5000/cars',{
@@ -24,7 +32,12 @@ const AddCar = () => {
             body:JSON.stringify(carData)
         })
         .then(res =>res.json())
-        .then(data =>console.log(data))
+        .then(data =>{
+            toast.success('Added Car Successfully')
+            setTimeout(()=>{
+                navigate('/myCars')
+            },1000)
+            console.log(data)})
 
     }
     return (
@@ -124,7 +137,7 @@ const AddCar = () => {
                         name="bookingCount"
                         placeholder="Booking Count"
                         className="input input-bordered w-full"
-                        disabled
+                        defaultValue={0}
                     />
                 </div>
 
