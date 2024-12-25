@@ -10,11 +10,13 @@ import MyBookings from "../pages/MyBookings/MyBookings";
 import CarsDetails from "../pages/AvailableCars/CarsDetails";
 import UpdateDetails from "../pages/MyCar.jsx/UpdateDetails";
 import PrivateRoute from "../pages/PrivateRoute";
+import ErrorPage from "../pages/ErrorPage";
 
 const router=createBrowserRouter([
     {
         path:'/',
         element:<MainLayouts></MainLayouts>,
+        errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
                 path:'/',
