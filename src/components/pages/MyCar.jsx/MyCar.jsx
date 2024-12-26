@@ -4,20 +4,20 @@ import Swal from 'sweetalert2'; // React SweetAlert2
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../Provider/AuthProvider';
 import axios from 'axios';
+import UseAxiosSecure from '../../AxiosSecure/UseAxiosSecure';
 
 const MyCar = () => {
     const { user } = useContext(AuthContext);
     const [cars, setCars] = useState([]);
     const [sortOption, setSortOption] = useState('dateAdded');
+    const axiosSecure=UseAxiosSecure()
 
     useEffect(() => {
         if (user?.email) {
-            axios
-                .get(`http://localhost:5000/cars/email?email=${user.email}`, { withCredentials: true })
-                .then((res) => setCars(res.data))
-                .catch((error) => console.error('Error fetching cars:', error));
+            axiosSecure.get(`/cars/email?email=${user.email}`)
+            .then((res) => setCars(res.data))
         }
-    }, [user]);
+    }, [axiosSecure, user]);
 
     const handleSortChange = (e) => setSortOption(e.target.value);
 
@@ -41,7 +41,8 @@ const MyCar = () => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!',
-        }).then((result) => {
+        })
+        .then((result) => {
             if (result.isConfirmed) {
                 fetch(`http://localhost:5000/cars/${id}`, { method: 'DELETE' })
                     .then((res) => res.json())

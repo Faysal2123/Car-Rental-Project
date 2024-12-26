@@ -42,6 +42,7 @@ const CarsDetails = () => {
                     dailyPrice,
                     userEmail,
                     bookingDate: new Date().toISOString(),
+                    status:'Confirmed'
                     
                 };
     
