@@ -23,21 +23,14 @@ const MyBookings = () => {
   const [newDate, setNewDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const { user } = useContext(AuthContext);
-  const axiosSecure=UseAxiosSecure()
+  const axiosSecure = UseAxiosSecure();
 
   useEffect(() => {
     if (user?.email) {
-    
-    // axios
-    // .get(`http://localhost:5000/bookings?email=${user.email}`, { withCredentials: true })
-    // .then((res) => setBookings(res.data))
-    // .catch((error) =>  console.error("Error fetching bookings:", error));
-    // }
-    axiosSecure.get(`/bookings?email=${user.email}`)
-    .then((res) => setBookings(res.data))}
+      axiosSecure.get(`/bookings?email=${user.email}`).then((res) => setBookings(res.data));
+    }
   }, [axiosSecure, user.email]);
 
-  // Cancel booking
   const handleCancelBooking = (id) => {
     Swal.fire({
       title: "Are you sure you want to cancel this booking?",
@@ -60,7 +53,7 @@ const MyBookings = () => {
                     : booking
                 )
               );
-             
+
               Swal.fire(
                 "Cancelled!",
                 "Your booking status has been updated to Cancelled.",
@@ -75,7 +68,6 @@ const MyBookings = () => {
     });
   };
 
-  // Modify date
   const handleModifyDate = (bookingId) => {
     if (newDate) {
       fetch(`http://localhost:5000/bookings/${bookingId}`, {
@@ -93,7 +85,7 @@ const MyBookings = () => {
                   : booking
               )
             );
-          
+
             setShowDatePicker(false);
             setSelectedBooking(null);
             Swal.fire("Success!", "Booking date modified successfully.", "success");
@@ -109,7 +101,7 @@ const MyBookings = () => {
       Swal.fire("Warning!", "Please select a valid date.", "warning");
     }
   };
-  
+
   const handleDeleteBooking = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -132,10 +124,6 @@ const MyBookings = () => {
       }
     });
   };
-  
-  
-  
-  
 
   const chartData = bookings.map((booking) => ({
     date: new Date(booking.bookingDate).toLocaleDateString(),
@@ -231,23 +219,25 @@ const MyBookings = () => {
         <h2 className="text-xl font-semibold text-center">
           Daily Rental Price
         </h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
-            <XAxis dataKey="date" tick={{ fontSize: 12 }} />
-            <YAxis tick={{ fontSize: 12 }} />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "rgba(255, 255, 255, 0.9)",
-                border: "1px solid #ddd",
-              }}
-              labelStyle={{ fontWeight: "bold" }}
-              itemStyle={{ fontSize: "14px", color: "#333" }}
-            />
-            <Legend verticalAlign="top" height={36} />
-            <Bar dataKey="price" fill="#82ca9d" barSize={30} />
-          </BarChart>
-        </ResponsiveContainer>
+        <div className="w-full h-[300px] max-w-[100%]">
+          <ResponsiveContainer>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+              <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+              <YAxis tick={{ fontSize: 12 }} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "rgba(255, 255, 255, 0.9)",
+                  border: "1px solid #ddd",
+                }}
+                labelStyle={{ fontWeight: "bold" }}
+                itemStyle={{ fontSize: "14px", color: "#333" }}
+              />
+              <Legend verticalAlign="top" height={36} />
+              <Bar dataKey="price" fill="#82ca9d" barSize={30} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
 
       {selectedBooking && (

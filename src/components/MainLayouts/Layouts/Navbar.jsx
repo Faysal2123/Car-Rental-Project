@@ -76,7 +76,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-end gap-2">
           {user ? (
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <div>
                 <img
                   className="h-10 w-10 rounded-full object-fill"
