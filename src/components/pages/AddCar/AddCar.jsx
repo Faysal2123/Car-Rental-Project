@@ -25,7 +25,7 @@ const AddCar = () => {
        const carData={model,dailyPrice,availability,registrationNumber,features,description,bookingCount,carImage,location,userEmail,addedDate}
        console.log(carData)
 
-        fetch('http://localhost:5000/cars',{
+        fetch('https://assignment-11-server-ten-ecru.vercel.app/cars',{
             method:'POST',
             headers:{
                 'Content-Type': 'application/json',

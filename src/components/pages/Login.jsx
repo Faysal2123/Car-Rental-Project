@@ -31,7 +31,7 @@ const Login = () => {
         signIn(email,password)
         .then((result)=>{
           const user=result.user;
-          axios.post('http://localhost:5000/jwt', {withCredential:true})
+          axios.post('https://assignment-11-server-ten-ecru.vercel.app/jwt', {withCredential:true})
           .then(res=>console.log(res.data))
           setUser(user)
           toast.success("Login Successful")

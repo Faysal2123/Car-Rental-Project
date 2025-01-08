@@ -40,7 +40,7 @@ const MyBookings = () => {
       cancelButtonText: "No, Keep it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/bookings/${id}/cancel`, {
+        fetch(`https://assignment-11-server-ten-ecru.vercel.app/bookings/${id}/cancel`, {
           method: "PUT",
         })
           .then((res) => res.json())
@@ -70,7 +70,7 @@ const MyBookings = () => {
 
   const handleModifyDate = (bookingId) => {
     if (newDate) {
-      fetch(`http://localhost:5000/bookings/${bookingId}`, {
+      fetch(`https://assignment-11-server-ten-ecru.vercel.app/bookings/${bookingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newDate }),
@@ -114,7 +114,7 @@ const MyBookings = () => {
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/bookings/${id}`, { method: 'DELETE' })
+        fetch(`https://assignment-11-server-ten-ecru.vercel.app/bookings/${id}`, { method: 'DELETE' })
           .then((res) => res.json())
           .then(() => {
             setBookings(bookings.filter((booking) => booking._id !== id));

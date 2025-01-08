@@ -9,7 +9,7 @@ const UpdateDetails = () => {
     const navigate = useNavigate();
     const [car, setCar] = useState(null); 
     useEffect(() => {
-        fetch(`http://localhost:5000/cars/${id}`)
+        fetch(`https://assignment-11-server-ten-ecru.vercel.app/cars/${id}`)
             .then((res) => res.json())
             .then((data) => setCar(data))
             .catch((error) => console.error('Error fetching car data:', error));
@@ -27,7 +27,7 @@ const UpdateDetails = () => {
             location: e.target.location.value,
         };
 
-        fetch(`http://localhost:5000/cars/${id}`, {
+        fetch(`https://assignment-11-server-ten-ecru.vercel.app/cars/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

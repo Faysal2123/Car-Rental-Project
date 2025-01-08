@@ -47,7 +47,7 @@ const CarsDetails = () => {
                 };
     
             
-                fetch('http://localhost:5000/bookings', {
+                fetch('https://assignment-11-server-ten-ecru.vercel.app/bookings', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

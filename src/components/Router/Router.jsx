@@ -22,17 +22,17 @@ const router=createBrowserRouter([
             {
                 path:'/',
                 element:<Home></Home>,
-                loader:()=>fetch('http://localhost:5000/cars')
+                loader:()=>fetch('https://assignment-11-server-ten-ecru.vercel.app/cars')
             },
             {
                 path:'/availableCars',
                 element:<AvailableCars></AvailableCars>,
-                loader:()=>fetch('http://localhost:5000/cars')
+                loader:()=>fetch('https://assignment-11-server-ten-ecru.vercel.app/cars')
             },
             {
                 path:'/carsDetails/:id',
                 element:<CarsDetails></CarsDetails>,
-                loader:({params})=>fetch(`http://localhost:5000/cars/${params.id}`)
+                loader:({params})=>fetch(`https://assignment-11-server-ten-ecru.vercel.app/cars/${params.id}`)
             },
             {
                 path:'/addCar',

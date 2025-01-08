@@ -27,7 +27,7 @@ const AuthProvider = ({children}) => {
                 try {
                     if (currentUser) {
                         const res = await axios.post(
-                            'http://localhost:5000/jwt',
+                            'https://assignment-11-server-ten-ecru.vercel.app/jwt',
                             { email: currentUser.email },
                             { withCredentials: true }
                         );
@@ -37,7 +37,7 @@ const AuthProvider = ({children}) => {
                         setLoading(false);
                     } else {
                         const res = await axios.post(
-                            'http://localhost:5000/logout',
+                            'https://assignment-11-server-ten-ecru.vercel.app/logout',
                             {},
                             { withCredentials: true }
                         );
