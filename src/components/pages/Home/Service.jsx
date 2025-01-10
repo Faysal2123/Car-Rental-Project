@@ -10,7 +10,7 @@ const Service = () => {
     <div className='bg-black/80 lg:py-10 py-5'>
       
       <div>
-        <h1 className='text-white lg:text-5xl font-semibold text-2xl text-center lg:mb-10 '>
+        <h1 className='text-white lg:text-4xl  text-2xl font-extrabold text-center lg:mb-10 '>
           Why Choose Elite Rides Rental System?
         </h1>
       </div>

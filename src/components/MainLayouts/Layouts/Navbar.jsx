@@ -35,7 +35,7 @@ const Navbar = () => {
     </>
   );
   return (
-   <div className=" bg-slate-200">
+   <div className=" bg-slate-200 sticky z-50 top-0">
      <div className="items-center w-11/12 mx-auto">
       <div className="navbar ">
         <div className="navbar-start">
@@ -58,7 +58,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow "
             >
               {user ? LoggedInLinks
                : LoggedOutLinks}
@@ -72,9 +72,12 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-base">{user ? LoggedInLinks :LoggedOutLinks}</ul>
+          <ul className="menu menu-horizontal px-1 text-base font-bold">{user ? LoggedInLinks :LoggedOutLinks}
+            
+          </ul>
         </div>
         <div className="navbar-end gap-2">
+            
           {user ? (
             <div className="flex gap-2 items-center">
               <div>
@@ -93,7 +96,7 @@ const Navbar = () => {
               <Link to="/login" className="btn btn-accent ">
                 Login
               </Link>
-              {/* <Link to='/register' className="btn btn-error">Register</Link> */}
+             
             </div>
           )}
         </div>

@@ -3,6 +3,7 @@ import Banner from './Banner';
 import Service from './Service';
 import RecentListing from './RecentListing';
 import SpecialOffers from './SpecialOffers';
+import Qna from './Qna';
 
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
             <Service></Service>
             <RecentListing></RecentListing>
             <SpecialOffers></SpecialOffers>
+            <Qna></Qna>
         </div>
     );
 };

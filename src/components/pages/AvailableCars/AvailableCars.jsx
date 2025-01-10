@@ -68,11 +68,13 @@ const AvailableCars = () => {
                         key={car._id}
                         className="border rounded-xl shadow-lg p-6 flex flex-col bg-white hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
                     >
-                        <img
+                       <div className='w-full h-64 '>
+                          <img
                             src={car.carImage}
                             alt={car.model}
-                            className="w-full h-64 object-contain mb-4 rounded-lg shadow-md"
+                            className="w-full h-full object-contain mb-4 rounded-lg shadow-lg "
                         />
+                       </div>
                         <h2 className="text-lg font-semibold text-gray-800">{car.model}</h2>
                         <p className="text-gray-600">{car.dailyPrice}</p>
                         <p className={`text-sm font-medium my-2 ${car.availability === 'Available' ? 'text-green-500' : 'text-red-500'}`}>

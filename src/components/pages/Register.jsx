@@ -56,12 +56,12 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center lg:flex-row flex-col items-center pt-8 pb-6">
+    <div className="flex justify-center lg:flex-row flex-col items-center pt-8 pb-6 ">
       <div className="lg:h-72 lg:w-72 h-28 w-28 flex justify-center">
         <Lottie animationData={RegisterLogo}></Lottie>
       </div>
       <div>
-        <div className="card bg-base-100 w-full shadow-2xl p-3">
+        <div className="card bg-base-100 w-full shadow-2xl ">
           <form className="card-body" onSubmit={handleRegister}>
             <div className="form-control">
               <label className="label">
@@ -71,7 +71,7 @@ const Register = () => {
                 name="name"
                 type="text"
                 placeholder="Name"
-                className="input input-bordered"
+                className="input input-bordered "
                 required
               />
             </div>
