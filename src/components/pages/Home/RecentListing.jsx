@@ -16,8 +16,8 @@ const RecentListing = () => {
           a wide variety of top models with competitive pricing.
         </p>
       </div>
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
-        {cars.slice(0, 6).map((car) => (
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">
+        {cars.slice(0, 8).map((car) => (
           <div
             key={car._id}
             className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 overflow-hidden"
@@ -58,7 +58,7 @@ const RecentListing = () => {
               <div>
               <Link
                   to={`/carsDetails/${car._id}`}
-                  className="mt-3 inline-block px-6 py-2 text-white bg-zinc-400 rounded-lg shadow-md hover:bg-zinc-600 transition duration-300 ease-in-out transform hover:scale-105"
+                  className="mt-3 inline-block px-6 py-2 text-white bg-stone-400 font-bold rounded-lg shadow-md hover:bg-zinc-600 transition duration-300 ease-in-out transform hover:scale-105"
                 >
                   Car Details
                 </Link>
