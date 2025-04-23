@@ -12,6 +12,7 @@ import UpdateDetails from "../pages/MyCar.jsx/UpdateDetails";
 import PrivateRoute from "../pages/PrivateRoute";
 import ErrorPage from "../pages/ErrorPage";
 import Chart from "../pages/Chart";
+import About from "../pages/About/About";
 
 const router=createBrowserRouter([
     {
@@ -45,6 +46,10 @@ const router=createBrowserRouter([
             {
                 path:'/myBookings',
                 element:<PrivateRoute><MyBookings></MyBookings> </PrivateRoute>
+            },
+            {
+                path:'/about',
+                element:<About></About>
             },
             {
                 path:'/updateDetails/:id',

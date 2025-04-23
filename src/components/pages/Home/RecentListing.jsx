@@ -22,16 +22,16 @@ const RecentListing = () => {
             key={car._id}
             className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 overflow-hidden"
           >       
-            <div className='h-60 w-full p-5 bg-gray-200 '>
-             <div className="relative w-full h-full  flex items-center justify-center overflow-hidden rounded-xl mb-4 ">
-                <img
-                  src={car.carImage}
-                  alt={car.model}
-                  className="object-contain h-full transition-transform duration-500 hover:scale-110
-                  "
-                />
-              </div>
-             </div>
+    <div className='h-80 w-full p-5 bg-gray-200'>
+  <div className="w-full h-full flex items-center justify-center rounded-xl overflow-hidden">
+    <img
+      src={car.carImage}
+      alt={car.model}
+      className="max-h-full max-w-full object-contain transition-transform duration-500 hover:scale-105"
+    />
+  </div>
+</div>
+
             <div className="p-6">
               <h3 className="text-2xl font-semibold text-gray-900 transition-all">
                 {car.model}

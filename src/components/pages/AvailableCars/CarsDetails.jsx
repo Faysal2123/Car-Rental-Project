@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
 
 const CarsDetails = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to top when component loads
+    }, []);
+
     const details = useLoaderData();
     const { model, dailyPrice, availability, features, carImage, description, location } = details;
     const auth = getAuth();
     const userEmail = auth.currentUser?.email || 'Guest'; 
-    const navigate=useNavigate()
+    const navigate = useNavigate();
+
     const handleBookingConfirm = () => {
-        const auth = getAuth();
         const userEmail = auth.currentUser?.email;
     
         if (!userEmail) {
-            
             Swal.fire({
                 title: 'Login Required',
                 text: 'Please log in to confirm your booking.',
@@ -42,11 +45,9 @@ const CarsDetails = () => {
                     dailyPrice,
                     userEmail,
                     bookingDate: new Date().toISOString(),
-                    status:'Confirmed'
-                    
+                    status: 'Confirmed'
                 };
     
-            
                 fetch('https://assignment-11-server-ten-ecru.vercel.app/bookings', {
                     method: 'POST',
                     headers: {
@@ -54,25 +55,24 @@ const CarsDetails = () => {
                     },
                     body: JSON.stringify(bookingData),
                 })
-                    .then((res) => res.json())
-                    .then((data) => {
-                        if (data.insertedId) {
-                            toast.success('Booking Confirmed!');
-                            setTimeout(()=>{
-                                navigate('/myBookings')
-                            },1000)
-                            Swal.fire('Booked!', 'Your booking has been confirmed.', 'success');
-                        } else {
-                            Swal.fire('Failed!', data.message || 'Booking failed!', 'error');
-                        }
-                    })
-                    .catch(() => {
-                        Swal.fire('Error!', 'Something went wrong. Please try again.', 'error');
-                    });
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.insertedId) {
+                        toast.success('Booking Confirmed!');
+                        setTimeout(() => {
+                            navigate('/myBookings');
+                        }, 1000);
+                        Swal.fire('Booked!', 'Your booking has been confirmed.', 'success');
+                    } else {
+                        Swal.fire('Failed!', data.message || 'Booking failed!', 'error');
+                    }
+                })
+                .catch(() => {
+                    Swal.fire('Error!', 'Something went wrong. Please try again.', 'error');
+                });
             }
         });
     };
-    
 
     return (
         <div className="p-6 bg-gray-100 ">
@@ -108,14 +108,11 @@ const CarsDetails = () => {
                 <p className="text-gray-700 text-lg mb-6">{description}</p>
                 <button
                     onClick={handleBookingConfirm}
-
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all"
                 >
                     Book Now
                 </button>
             </div>
-
-            
         </div>
     );
 };
